@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 const StyledAppWrapper = styled(Box)`
   display: flex;
   justify-content: space-between;
-  min-width: 500px;
+  min-width: 300px;
   max-width: 90%;
   margin: 100px auto;
   padding: 12px;
@@ -14,6 +14,12 @@ const StyledAppWrapper = styled(Box)`
   border-radius: 6px;
   & > * {
     width: 45%;
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+    & > * {
+      width: 100%;
+    }
   }
 `;
 

@@ -1,5 +1,5 @@
 import React, {
-  ChangeEvent, useEffect, useState,
+  ChangeEvent, useEffect, useState, useRef,
 } from 'react';
 import {
   Box, Button, Container, TextField,
@@ -29,6 +29,8 @@ const PracticeForm: React.FC<PracticeFormProps> = ({
   const [time, setTime] = useState<number>(_timeout * 1000);
   const [practiceStatus, setPracticeStatus] = useState<boolean>(false);
   const [countdownTime, setCountdownTime] = useState<number>(0);
+
+  const inputRef = useRef();
 
   const [solvedTasksAmount, setSolvedTasksAmount] = useState<number>(0);
   const [equation, setEquation] = useState<
@@ -78,6 +80,8 @@ const PracticeForm: React.FC<PracticeFormProps> = ({
           return prevState - 10;
         }));
       }, 10));
+      // @ts-ignore
+      inputRef.current.focus();
     }
   }, [practiceStatus]);
 
@@ -101,7 +105,8 @@ const PracticeForm: React.FC<PracticeFormProps> = ({
     setCountdownTime(0);
     setSolvedTasksAmount(0);
     setEquation({ task: '(x^3) / 3 + C =', result: -1 });
-    setAnswer('');
+    // @ts-ignore
+    inputRef.current.value = '';
   };
 
   const onReturn = () => {
@@ -174,11 +179,13 @@ const PracticeForm: React.FC<PracticeFormProps> = ({
           type="number"
           onChange={onChangeAnswer}
           value={answer}
+          inputRef={inputRef}
         />
       </FieldsetSimplified>
 
       <Container
         sx={{
+          mt: 3,
           display: 'flex',
           justifyContent: 'center',
         }}
